@@ -131,7 +131,9 @@ public class CountryController
 
         myList.sort((c1, c2) -> (int) (c1.getPopulation() - c2.getPopulation()));
 
-        int medianNum = ((myList.size() / 2) + 1 );
+        int medianMod = (myList.size() % 2 );
+
+        int medianNum = ((myList.size() / 2) + medianMod );
 
         Country medianPop = myList.get(medianNum);
 
