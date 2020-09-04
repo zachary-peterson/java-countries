@@ -97,19 +97,45 @@ public class CountryController
         
         myList.sort((c1, c2) -> (int) (c1.getPopulation() - c2.getPopulation()));
 
+        Country minPop = myList.get(0);
 
-        for (Country c : myList)
-        {
-            total = total + c.getPopulation();
-        }
-        System.out.println("The Total Population Is " + total);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(minPop, HttpStatus.OK);
     }
     
     // http://localhost:2019/population/max
 
+    @GetMapping(value = "/population/max", produces = {"application/json"})
+    public ResponseEntity<?> displayPopulationMax()
+    {
+        ArrayList<Country> myList = new ArrayList<>();
+
+        countrepos.findAll().iterator().forEachRemaining(myList::add);
+
+        myList.sort((c1, c2) -> (int) (c2.getPopulation() - c1.getPopulation()));
+
+        Country maxPop = myList.get(0);
+
+        return new ResponseEntity<>(maxPop, HttpStatus.OK);
+    }
+
     //Stretch
     // http://localhost:2019/population/median
     //
+
+    @GetMapping(value = "/population/median", produces = {"application/json"})
+    public ResponseEntity<?> displayPopulationMedian()
+    {
+        ArrayList<Country> myList = new ArrayList<>();
+
+        countrepos.findAll().iterator().forEachRemaining(myList::add);
+
+        myList.sort((c1, c2) -> (int) (c1.getPopulation() - c2.getPopulation()));
+
+        int medianNum = ((myList.size() / 2) + 1 );
+
+        Country medianPop = myList.get(medianNum);
+
+        return new ResponseEntity<>(medianPop, HttpStatus.OK);
+    }
 
 }
